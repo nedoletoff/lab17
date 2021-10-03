@@ -86,7 +86,6 @@ class DoubleList
 
 		void push_back(const T d)
 		{
-			Node<T>* t = tail;
 			Node<T>* c = new Node<T>;
 			if (head == NULL)
 				head = c;
@@ -95,6 +94,7 @@ class DoubleList
 
 			if (tail != NULL)
 			{
+				Node<T>* t = tail;
 				t->set_next(*c);
 				c->set_prev(*t);
 			}
@@ -131,19 +131,16 @@ class DoubleList
 			}
 		}
 
-		DoubleList(DoubleList& a)
+		DoubleList<T>(DoubleList<T>& a)
 		{
-			if (a.size == 0)
-			{
-				size = 0;
-				head = NULL;
-				tail = NULL;
-			}
-			else 
+			head = NULL;
+			tail = NULL;
+			size = 0;
+			if (a.size)
 			{
 				size = 0;
 				Node<T>* cur = a.head;
-				for (size_t i = 0; i <= size; ++i)
+				for (size_t i = 0; i < a.size; ++i)
 				{
 					push_back(cur->get_data());
 					cur = cur->get_next();
@@ -151,21 +148,18 @@ class DoubleList
 			}
 		}
 
-		DoubleList& operator=(DoubleList& a)
+		DoubleList<T>& operator=(DoubleList<T>& a)
 		{
 			if (&a == this)
 				return *this;
-			if (a.size == 0)
-			{
-				size = 0;
-				head = NULL;
-				tail = NULL;
-			}
-			else 
+			head = NULL;
+			tail = NULL;
+			size = 0;
+			if (a.size)
 			{
 				size = 0;
 				Node<T>* cur = a.head;
-				for (size_t i = 0; i <= size; ++i)
+				for (size_t i = 0; i < a.size; ++i)
 				{
 					push_back(cur->get_data());
 					cur = cur->get_next();
@@ -174,19 +168,10 @@ class DoubleList
 			return *this;
 		}
 
-		~DoubleList()
+		~DoubleList<T>()
 		{
-			try
-			{
-				while (tail) 
-				{
-					pop_back();
-				}
-			}
-			catch(double e)
-			{
-				std::cout << e << " list is empty" << std::endl;
-			}
+			while (tail) 
+				pop_back();
 		}
 
 		void push_front(const T d)
@@ -245,6 +230,19 @@ class DoubleList
 				cur = cur->get_next();
 			}
 		}
+
+		void unite(DoubleList<T>& a, DoubleList<T>& b)
+		{
+			DoubleList<T> lst1(a);
+			DoubleList<T> lst2(b);
+			for (size_t i = 0; i < b.size; ++i)
+				push_front(lst2.pop_back());
+			for (size_t i = 0; i < a.size; ++i)
+				push_front(lst1.pop_back());
+
+		}
+
+
 };
 
 struct Point
@@ -253,4 +251,5 @@ struct Point
 	int y;
 	int z;
 };
+
 
