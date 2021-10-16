@@ -41,11 +41,12 @@ int main()
 	lst_int2.print();
 
 	DoubleList<int> lst_int3;
-	lst_int3.unite(lst_int2, lst_int);
 
+	lst_int3.unite( lst_int, lst_int);
 	lst_int3.print();
 
 	DoubleList<Point> point_lst;
+
 	struct Point e;
 	e.x = 1; e.y = 2; e.z = 3;
 	std::cout << e.x << " " << e.y << " " << e.z << std::endl;

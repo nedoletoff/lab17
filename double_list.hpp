@@ -152,6 +152,8 @@ class DoubleList
 		{
 			if (&a == this)
 				return *this;
+			while (head)
+				pop_back();
 			head = NULL;
 			tail = NULL;
 			size = 0;
@@ -233,10 +235,8 @@ class DoubleList
 
 		void unite(DoubleList<T>& a, DoubleList<T>& b)
 		{
+			*this = b;
 			DoubleList<T> lst1(a);
-			DoubleList<T> lst2(b);
-			for (size_t i = 0; i < b.size; ++i)
-				push_front(lst2.pop_back());
 			for (size_t i = 0; i < a.size; ++i)
 				push_front(lst1.pop_back());
 
